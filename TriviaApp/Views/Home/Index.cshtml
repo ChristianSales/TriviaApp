@@ -1,0 +1,32 @@
+﻿@using TriviaApp.Models
+@{
+    // ViewBag.Title = "Home Page";
+    // if (Session["userID"] == null)
+    // {
+    //      Response.Redirect("~/Account/Index");
+    // }
+}
+@model List<TriviaResult>
+
+
+
+<div id="1"> </div>
+<div id="3"> </div>
+
+
+<div>
+    @for (var i = 0; i <= Model.Count; i++)
+    {
+        <button onclick="myFunction(@i)" class="btn" name="@i">@i</button>
+
+    }
+</div>
+
+<script>
+    var data = @(Model[1].Question);
+    function myFunction(id) {
+        document.getElementById(id).innerHTML = data;
+    }
+
+
+</script>

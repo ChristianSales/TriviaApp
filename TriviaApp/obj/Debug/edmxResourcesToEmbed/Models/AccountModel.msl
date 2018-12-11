@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TriviaDBModelStoreContainer" CdmEntityContainer="TriviaDBEntities">
+    <EntitySetMapping Name="Stats">
+      <EntityTypeMapping TypeName="TriviaDBModel.Stat">
+        <MappingFragment StoreEntitySet="Stats">
+          <ScalarProperty Name="StatsID" ColumnName="StatsID" />
+          <ScalarProperty Name="AmountCorrect" ColumnName="AmountCorrect" />
+          <ScalarProperty Name="AmountWrong" ColumnName="AmountWrong" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TriviaDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="StatsID" ColumnName="StatsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
