@@ -6,27 +6,41 @@
     //      Response.Redirect("~/Account/Index");
     // }
 }
-@model List<TriviaResult>
+@model TriviaApp.Models.TriviaResult
+@{
+    List<TriviaResult> Hello = (List<TriviaResult>)Session["Trivia"];
+    TriviaResult CurrentQuestion = Hello[(int)Session["Index"]];
+
+}
 
 
 
-<div id="1"> </div>
-<div id="3"> </div>
 
 
-<div>
-    @for (var i = 0; i <= Model.Count; i++)
-    {
-        <button onclick="myFunction(@i)" class="btn" name="@i">@i</button>
-
-    }
-</div>
-
-<script>
-    var data = @(Model[1].Question);
-    function myFunction(id) {
-        document.getElementById(id).innerHTML = data;
-    }
 
 
-</script>
+
+@using (Html.BeginForm("Quiz", "Home", FormMethod.Post, Model))
+
+{
+    @CurrentQuestion.Question
+
+    @Html.HiddenFor(Model => Model.CorrectAnswer, Model.CorrectAnswer)
+
+    <div>
+        @Model.Choices[0] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[0], false)
+        @Model.Choices[1] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[1], false)
+    </div>
+    <div>
+        @Model.Choices[2] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[2], false)
+        @Model.Choices[3] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[3], false)
+    </div>
+    <input type="submit" value="Create" class="btn btn-default" />
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+}

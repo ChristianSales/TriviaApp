@@ -19,7 +19,7 @@ namespace TriviaApp.TriviaAPI
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://opentdb.com/api.php?amount=");
-                HttpResponseMessage Response = client.GetAsync($"https://opentdb.com/api.php?amount={Options.Amount}&category={Options.Category}&difficulty={Options.Difficulty}").Result;
+                HttpResponseMessage Response = client.GetAsync($"https://opentdb.com/api.php?amount={Options.Amount}&category={Options.Category}&difficulty={Options.Difficulty}&type=multiple").Result;
                 string result = Response.Content.ReadAsStringAsync().Result;
                 JObject json = JObject.Parse(result);
                 return json;

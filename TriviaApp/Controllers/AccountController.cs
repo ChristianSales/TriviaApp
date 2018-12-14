@@ -21,13 +21,14 @@ namespace TriviaApp.Controllers
             using (TriviaDBEntities db = new TriviaDBEntities())
             {
                 var userInfo = db.Users.Where(x => x.UserName == UserModel.UserName && x.Password == UserModel.Password).FirstOrDefault();
-                if(userInfo == null)
+                if (userInfo == null)
                 {
                     UserModel.LoginErrorMessage = "Wrong username or password.";
                     return View("index", UserModel);
                 }
                 else
                 {
+                   
                     Session["userID"] = userInfo.UserID;
                     Session["userName"] = userInfo.UserName;
                     return RedirectToAction("Index", "Home");

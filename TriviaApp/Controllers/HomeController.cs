@@ -23,11 +23,13 @@ namespace TriviaApp.Controllers
 
             foreach(var thing in results["results"])
             {
-                var IncorrectList = new List<string>();
+                var ChoiceList = new List<string>();
                 foreach (var wrong in thing["incorrect_answers"])
                 {
-                    IncorrectList.Add((string)wrong);
+                    ChoiceList.Add((string)wrong);
                 }
+                ChoiceList.Add((string)thing["correct_answer"]);
+                ChoiceList.Shuffle();
                 TriviaResultList.Add(new TriviaResult()
                 {
                     Category = (string)thing["category"],
@@ -35,11 +37,40 @@ namespace TriviaApp.Controllers
                     Difficulty = (string)thing["difficulty"],
                     Question = (string)thing["question"],
                     CorrectAnswer = (string)thing["correct_answer"],
-                    IncorrectAnswers = IncorrectList,
+                    Choices = ChoiceList,
                 });
             }
-            return View(TriviaResultList);
+            ViewBag.Count = 0;
+            Session["Trivia"] = TriviaResultList;
+            Session["Index"] = 0;
+            return View(TriviaResultList[(int)Session["Index"]]);
         }
+
+        public ActionResult Quiz(TriviaResult result)
+        {
+            string correct = result.CorrectAnswer;
+            string selected = result.SelectedAnswer;
+            List<TriviaResult> Quiz = (List<TriviaResult>)Session["Trivia"];
+            Quiz[(int)Session["Index"]].SelectedAnswer = result.SelectedAnswer;
+
+
+            if (correct == selected)
+            {
+                Quiz[(int)Session["Index"]].Score = true;
+            }
+            
+            Session["Index"] = (int)Session["Index"] + 1;
+            Session["Trivia"] = Quiz;
+            if(Quiz.Count() == (int)Session["Index"])
+            {
+                return View("Results");
+            }
+            return View("Index", Quiz[(int)Session["Index"]]);
+        }
+
+
+
+
 
         public ActionResult About()
         {
