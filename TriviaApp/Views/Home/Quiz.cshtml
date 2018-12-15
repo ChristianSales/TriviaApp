@@ -1,0 +1,44 @@
+﻿@using TriviaApp.Models
+@{
+    // ViewBag.Title = "Home Page";
+    // if (Session["userID"] == null)
+    // {
+    //      Response.Redirect("~/Account/Index");
+    // }
+}
+@model TriviaApp.Models.TriviaResult
+@{
+    List<TriviaResult> Hello = (List<TriviaResult>)Session["Trivia"];
+    TriviaResult CurrentQuestion = Hello[(int)Session["Index"]];
+
+}
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("Quiz", "Home", FormMethod.Post))
+
+{
+    @CurrentQuestion.Question
+
+    <div>
+        @Model.Choices[0] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[0], false)
+        @Model.Choices[1] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[1], false)
+    </div>
+    <div>
+        @Model.Choices[2] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[2], false)
+        @Model.Choices[3] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[3], false)
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default" />
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+}

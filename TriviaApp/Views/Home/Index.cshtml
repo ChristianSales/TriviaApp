@@ -1,46 +1,89 @@
-﻿@using TriviaApp.Models
+﻿
 @{
-    // ViewBag.Title = "Home Page";
-    // if (Session["userID"] == null)
-    // {
-    //      Response.Redirect("~/Account/Index");
-    // }
+    ViewBag.Title = "Index";
 }
-@model TriviaApp.Models.TriviaResult
+@using TriviaApp.Models
+@using TriviaApp.TriviaAPI
+
+<h2>Build Your Trivia Quiz</h2>
+@model Search
 @{
-    List<TriviaResult> Hello = (List<TriviaResult>)Session["Trivia"];
-    TriviaResult CurrentQuestion = Hello[(int)Session["Index"]];
+
+    var client = new Client();
+    List<SelectListItem> CategoryList = new List<SelectListItem>();
+    var CategoryResults = client.GetCategories();
+    foreach (var result in CategoryResults["trivia_categories"])
+    {
+        CategoryList.Add(new SelectListItem
+        {
+            Text = (string)result["name"],
+            Value = (string)result["id"],
+
+        });
+    }
+    List<SelectListItem> DifficultyList = new List<SelectListItem>();
+    DifficultyList.Add(new SelectListItem
+    {
+        Text = "Easy",
+        Value = "easy",
+
+    });
+    DifficultyList.Add(new SelectListItem
+    {
+        Text = "Medium",
+        Value = "medium",
+
+    });
+    DifficultyList.Add(new SelectListItem
+    {
+        Text = "Hard",
+        Value = "hard",
+
+    });
+    List<SelectListItem> AmountList = new List<SelectListItem>();
+    AmountList.Add(new SelectListItem
+    {
+        Text = "10",
+        Value = "10",
+
+    });
+    AmountList.Add(new SelectListItem
+    {
+        Text = "20",
+        Value = "20",
+
+    });
+    AmountList.Add(new SelectListItem
+    {
+        Text = "30",
+        Value = "30",
+
+    });
+    AmountList.Add(new SelectListItem
+    {
+        Text = "40",
+        Value = "40",
+
+    });
+    AmountList.Add(new SelectListItem
+    {
+        Text = "50",
+        Value = "50",
+
+    });
+
 
 }
 
-
-
-
-
-
-
-
-@using (Html.BeginForm("Quiz", "Home", FormMethod.Post, Model))
-
+@using (Html.BeginForm("QuizStart", "Home", FormMethod.Post))
 {
-    @CurrentQuestion.Question
+    @Html.DropDownListFor(model => model.Category, CategoryList, "Any Category")
+    @Html.DropDownListFor(model => model.Difficulty, DifficultyList, "Any Difficulty")
+    @Html.DropDownListFor(model => model.Amount, AmountList)
 
-    @Html.HiddenFor(Model => Model.CorrectAnswer, Model.CorrectAnswer)
-
-    <div>
-        @Model.Choices[0] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[0], false)
-        @Model.Choices[1] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[1], false)
-    </div>
-    <div>
-        @Model.Choices[2] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[2], false)
-        @Model.Choices[3] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[3], false)
-    </div>
     <input type="submit" value="Create" class="btn btn-default" />
 }
 
 
-@section Scripts{
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+

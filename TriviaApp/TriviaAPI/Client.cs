@@ -7,6 +7,7 @@ using TriviaApp.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 
+
 namespace TriviaApp.TriviaAPI
 {
     public class Client
@@ -19,7 +20,19 @@ namespace TriviaApp.TriviaAPI
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://opentdb.com/api.php?amount=");
-                HttpResponseMessage Response = client.GetAsync($"https://opentdb.com/api.php?amount={Options.Amount}&category={Options.Category}&difficulty={Options.Difficulty}&type=multiple").Result;
+                HttpResponseMessage Response = client.GetAsync($"https://opentdb.com/api.php?amount={Options.Amount}&category={Options.Category}&difficulty={Options.Difficulty}&type=multiple&encode=url3986").Result;
+                string result = Response.Content.ReadAsStringAsync().Result;
+                JObject json = JObject.Parse(result);
+                return json;
+            }
+        }
+        public JToken GetCategories()
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://opentdb.com/api.php?amount=");
+                HttpResponseMessage Response = client.GetAsync($"https://opentdb.com/api_category.php").Result;
                 string result = Response.Content.ReadAsStringAsync().Result;
                 JObject json = JObject.Parse(result);
                 return json;

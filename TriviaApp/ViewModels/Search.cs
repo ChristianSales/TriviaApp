@@ -7,8 +7,8 @@ namespace TriviaApp.Models
 {
     public class Search
     {
-        public int Amount { get; set; }
-        public int Category { get; set; }
+        public string Amount { get; set; }
+        public string Category { get; set; }
         public string Difficulty { get; set; }
     }
 }
