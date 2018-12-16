@@ -46,6 +46,7 @@ namespace TriviaApp.Controllers
             }
             Session["Trivia"] = TriviaResultList;
             Session["Index"] = 0;
+            Session["Correct"] = 0;
             return View("Quiz", TriviaResultList[(int)Session["Index"]]);
         }
 
@@ -61,6 +62,7 @@ namespace TriviaApp.Controllers
 
             if (correct == selected)
             {
+                Session["Correct"] = (int)Session["Correct"] + 1;
                 Quiz[(int)Session["Index"]].Score = true;
             }
 
@@ -69,16 +71,53 @@ namespace TriviaApp.Controllers
             var count = (int)Session["index"];
             if (Quiz.Count() == (int)Session["Index"])
             {
-               return RedirectToAction("Results", "Home");
+                using (TriviaDBEntities dbmodel = new TriviaDBEntities())
+                {
+                    var userID = (int)Session["userID"];
+                    var user = dbmodel.Users.SingleOrDefault(m => m.UserID == userID);
+                    if(user != null)
+                    {
+                        var wrong = Quiz.Count() - (int)Session["Correct"];
+                        var TotalWrong = user.Stat.AmountWrong;
+                        TotalWrong = TotalWrong + wrong;
+                        user.Stat.AmountWrong = TotalWrong;
+                        var TotalCorrect = user.Stat.AmountCorrect;
+                        TotalCorrect = TotalCorrect + (int)Session["Correct"];
+                        user.Stat.AmountCorrect = TotalCorrect;
+                        var TotalQuiz = user.Stat.QuizTaken;
+                        TotalQuiz++;
+                        user.Stat.QuizTaken = TotalQuiz;
+                        dbmodel.SaveChanges();
+                    }
+                }
+                return RedirectToAction("Results", "Home");
             }
             return View("Quiz", Quiz[(int)Session["Index"]]);
         }
 
         public ActionResult Results()
         {
+            
+            List<TriviaResult> FinishedQuiz = (List<TriviaResult>)Session["Trivia"];
+
+
             return View();
         }
 
+        public ActionResult MyStats()
+        {
+            User UserAccount = new User();
+            Stat UserStat = new Stat();
+            var userID = (int)Session["userID"];
+            using (TriviaDBEntities dbModel = new TriviaDBEntities())
+            {
+                UserAccount = dbModel.Users.FirstOrDefault(x => x.UserID == userID);
+                UserStat = dbModel.Stats.FirstOrDefault(x => x.StatsID == UserAccount.StatsID);
+
+            }
+            UserAccount.Stat = UserStat;
+            return View(UserAccount);
+        }
 
 
         public ActionResult About()

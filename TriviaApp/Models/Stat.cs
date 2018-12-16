@@ -23,6 +23,7 @@ namespace TriviaApp.Models
         public int StatsID { get; set; }
         public Nullable<int> AmountCorrect { get; set; }
         public Nullable<int> AmountWrong { get; set; }
+        public Nullable<int> QuizTaken { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

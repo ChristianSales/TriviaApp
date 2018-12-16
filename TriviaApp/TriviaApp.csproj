@@ -176,15 +176,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Search.cs" />
     <Compile Include="Models\Stat.cs">
       <DependentUpon>AccountModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TriviaAPI\RandomTrivia.cs" />
-    <Compile Include="ViewModels\TriviaResult.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>AccountModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Search.cs" />
+    <Compile Include="TriviaAPI\RandomTrivia.cs" />
+    <Compile Include="ViewModels\TriviaResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TriviaAPI\Client.cs" />
   </ItemGroup>
@@ -199,8 +199,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\AccountModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AccountModel.Context.cs</LastGenOutput>
       <DependentUpon>AccountModel.edmx</DependentUpon>
+      <LastGenOutput>AccountModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\AccountModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -240,7 +240,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -250,6 +250,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\Results.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\MyStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

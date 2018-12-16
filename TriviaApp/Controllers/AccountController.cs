@@ -68,7 +68,8 @@ namespace TriviaApp.Controllers
                 UserModel.Stat = new Stat
                 {
                     AmountCorrect = 0,
-                    AmountWrong = 0
+                    AmountWrong = 0,
+                    QuizTaken = 0,
                 };
                 dbModel.Users.Add(UserModel);
                 dbModel.SaveChanges();

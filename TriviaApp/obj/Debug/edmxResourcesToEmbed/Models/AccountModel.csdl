@@ -7,8 +7,8 @@
     <Property Name="StatsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AmountCorrect" Type="Int32" />
     <Property Name="AmountWrong" Type="Int32" />
-    <Property Name="UserID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Users" Relationship="Self.User_Stat" FromRole="Stats" ToRole="Users" />
+    <Property Name="QuizTaken" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.User_Stat" FromRole="Stat" ToRole="Users" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -18,13 +18,13 @@
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="StatsID" Type="Int32" />
-    <NavigationProperty Name="Stat" Relationship="Self.User_Stat" FromRole="Users" ToRole="Stats" />
+    <NavigationProperty Name="Stat" Relationship="Self.User_Stat" FromRole="Users" ToRole="Stat" />
   </EntityType>
   <Association Name="User_Stat">
-    <End Role="Stats" Type="Self.Stat" Multiplicity="0..1" />
+    <End Role="Stat" Type="Self.Stat" Multiplicity="0..1" />
     <End Role="Users" Type="Self.User" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Stats">
+      <Principal Role="Stat">
         <PropertyRef Name="StatsID" />
       </Principal>
       <Dependent Role="Users">
@@ -36,7 +36,7 @@
     <EntitySet Name="Stats" EntityType="Self.Stat" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <AssociationSet Name="User_Stat" Association="Self.User_Stat">
-      <End Role="Stats" EntitySet="Stats" />
+      <End Role="Stat" EntitySet="Stats" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
   </EntityContainer>
