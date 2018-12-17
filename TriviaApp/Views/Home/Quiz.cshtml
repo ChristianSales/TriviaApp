@@ -13,30 +13,51 @@
 
 }
 
+<style>
+    #quiz-div {
+        position: absolute;
+        left: 40%;
+        top: 40%;
+        background-color:lightgrey;
+        max-width:500px;
+    }
+    span{
+        font-size:20px;
+    }
+
+    body {
+        background-image: url("../../Content/WhiteHouse.jpg")
+    }
+    #question-row{
+        font-size:20px
+    }
+    #quiz-button {
+
+    }
+</style>
+
+<body>
 
 
+<div id="quiz-div">
 
+    @using (Html.BeginForm("Quiz", "Home", FormMethod.Post))
 
+    {
+        <span>@CurrentQuestion.Question</span>
 
-
-
-@using (Html.BeginForm("Quiz", "Home", FormMethod.Post))
-
-{
-    @CurrentQuestion.Question
-
-    <div>
-        @Model.Choices[0] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[0], false)
-        @Model.Choices[1] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[1], false)
-    </div>
-    <div>
-        @Model.Choices[2] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[2], false)
-        @Model.Choices[3] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[3], false)
-    </div>
-    <input type="submit" value="Submit" class="btn btn-default" />
-}
-
-
+        <div id="question-row">
+            @Model.Choices[0] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[0], false)
+            @Model.Choices[1] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[1], false)
+        </div>
+        <div id="question-row">
+            @Model.Choices[2] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[2], false)
+            @Model.Choices[3] @Html.RadioButtonFor(Model => Model.SelectedAnswer, Model.Choices[3], false)
+        </div>
+        <input id="quiz-button" type="submit" value="Submit" class="btn btn-default" />
+    }
+</div>
+</body>
 @section Scripts{
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

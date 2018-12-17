@@ -5,7 +5,6 @@
 @using TriviaApp.Models
 @using TriviaApp.TriviaAPI
 
-<h2>Build Your Trivia Quiz</h2>
 @model Search
 @{
 
@@ -75,15 +74,32 @@
 
 }
 
-@using (Html.BeginForm("QuizStart", "Home", FormMethod.Post))
-{
-    @Html.DropDownListFor(model => model.Category, CategoryList, "Any Category")
-    @Html.DropDownListFor(model => model.Difficulty, DifficultyList, "Any Difficulty")
-    @Html.DropDownListFor(model => model.Amount, AmountList)
+<style>
+    body {
+        background-image: url("../../Content/books.jpg")
+    }
 
-    <input type="submit" value="Create" class="btn btn-default" />
-}
+    #form-div{
+        
+    }
+</style>
+<body>
+<div id="form-div">
 
+    @using (Html.BeginForm("QuizStart", "Home", FormMethod.Post))
+    {
+        <h2 id="BuildHeader">Build Your Trivia Quiz</h2>
+        <div id="builder">
+            @Html.DropDownListFor(model => model.Category, CategoryList, "Any Category", new { id = "SelectMe;" })
+            @Html.DropDownListFor(model => model.Difficulty, DifficultyList, "Any Difficulty")
+            @Html.DropDownListFor(model => model.Amount, AmountList)
 
+        </div>
+        <p></p>
+        <input type="submit" value="Create Quiz" class="btn btn-lg" />
 
+        <p></p>
 
+    }
+</div>
+</body>

@@ -5,8 +5,29 @@
 
 @model TriviaApp.Models.User
 
-<h2>MyStats</h2>
 
-@Model.Stat.AmountCorrect
-@Model.Stat.AmountWrong
-@Model.Stat.QuizTaken
+
+<style>
+    .stats{
+        font-size:30px;
+    }
+    h2{
+        font-size:60px;
+    }
+    body {
+        background-image: url("../../Content/PalmTree.jpg");
+    }
+   
+</style>
+
+<body>
+<div id="stat-div">
+<h2>@Model.UserName's Trivia Stats</h2>
+
+<ul>
+    <li class="stats"><strong>Total Answer's Correct:</strong>@Model.Stat.AmountCorrect</li>
+    <li class="stats"><strong>Total Answer's Incorrect:</strong>@Model.Stat.AmountWrong</li>
+    <li class="stats"><strong>Total Quizzes Taken:</strong>@Model.Stat.QuizTaken</li>
+</ul>
+</div>
+</body>

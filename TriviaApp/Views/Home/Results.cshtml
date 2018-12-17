@@ -2,15 +2,33 @@
 @{
     ViewBag.Title = "Results";
     List<TriviaResult> Results = (List<TriviaResult>)Session["Trivia"];
+    var correct = Session["Correct"];
+    var total = Results.Count();
 
 }
 
-<h2>Results</h2>
 
 
-@foreach(var question in Results)
-{   <p>@question.Question</p>
-    <p>@question.SelectedAnswer</p>
-    <p>@question.Score</p>
-    <hr>
-}
+
+<div id="result-div">
+<h1>Results</h1>
+<table class="table">
+    <tr>
+        <th>Question</th>
+        <th>Selected Answer</th>
+        <th>Correct Answer</th>
+        <th>Score</th>
+    </tr>
+
+    @foreach (var question in Results)
+    {
+        <tr>
+            <td>@question.Question</td>
+            <td>@question.SelectedAnswer</td>
+            <td>@question.CorrectAnswer</td>
+            <td>@question.Score</td>
+        </tr>
+    }
+</table>
+</div>
+

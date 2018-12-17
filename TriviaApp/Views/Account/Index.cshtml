@@ -10,64 +10,89 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/Account-theme.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <style>
         #login-div {
             position: absolute;
-            left: 40%;
+            left: 38%;
             top: 40%;
-            border: 1px solid #000000;
-            padding: 10px 10px;
         }
-        .field-validation-error{
-            color:red;
+
+        .field-validation-error {
+            color: #dc2c2c;
+        }
+
+        body {
+            background-image: url("../../Content/WaterFall.jpg")
+        }
+
+        h1 {
+            font-size: 7rem;
+            font-style: normal;
+            text-align: center;
         }
     </style>
+
 </head>
 <body>
+
+    <h1>Trivia Game</h1>
+
     <div id="login-div">
-        @using (Html.BeginForm("Authorize", "Account", FormMethod.Post))
-        {
-            <table>
-                <tr>
-                    <td></td>
-                    <td>Trivia Night!</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(Model => Model.UserName)</td>
-                    <td> @Html.EditorFor(Model => Model.UserName)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>@Html.ValidationMessageFor(Model => Model.UserName)</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(Model => Model.Password)</td>
-                    <td>@Html.EditorFor(Model => Model.Password)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>@Html.ValidationMessageFor(Model => Model.Password)</td>
-                 </tr>
-                <tr>
-                    <td colspan = "2">
-                        <label class="field-validation-error">@Html.DisplayFor(Model => Model.LoginErrorMessage)</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" name="name" value="Login" />
-                        <input type="reset" name="name" value="Clear" />
-                    </td>
-                </tr>
-            </table>
-        }
+        <div class="card card-signin my-5">
+            <div class="card-body">
+                @using (Html.BeginForm("Authorize", "Account", FormMethod.Post))
+                {
+                    <table>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(Model => Model.UserName)</td>
+                            <td> @Html.EditorFor(Model => Model.UserName)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>@Html.ValidationMessageFor(Model => Model.UserName)</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(Model => Model.Password)</td>
+                            <td>@Html.EditorFor(Model => Model.Password)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>@Html.ValidationMessageFor(Model => Model.Password)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label class="field-validation-error">@Html.DisplayFor(Model => Model.LoginErrorMessage)</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td>
+                                <input class="btn" type="submit" name="name" value="Login" />
+                            </td>
+                            <td> @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn" })</td>
 
-    </div>
 
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                        </tr>
+
+                    </table>
+                   
+                }
+
+            </div>
+          </div>
+            </div>
+
+            <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
 
 </html>
