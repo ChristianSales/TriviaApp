@@ -15,15 +15,25 @@ namespace TriviaApp.Controllers
 
         public ActionResult Index()
         {
+            if (Session["userID"] == null)
+            {
+                return RedirectToAction("index", "Account");
+            }
+
             Search model = new Search();
             return View(model);
         }
         public ActionResult QuizStart(Search SearchOptions)
         {
+            if(Session["userID"] == null)
+            {
+                return RedirectToAction("index", "Account");
+            }
             
             var Trivia = new Client();
             var TriviaResultList = new List<TriviaResult>();
             var results = Trivia.GetTrivia(SearchOptions);
+           
 
             foreach(var thing in results["results"])
             {
@@ -44,6 +54,10 @@ namespace TriviaApp.Controllers
                     Choices = ChoiceList,
                 });
             }
+            if(TriviaResultList.Count() == 0)
+            {
+                return RedirectToAction("Index","Home");
+            }
             Session["Trivia"] = TriviaResultList;
             Session["Index"] = 0;
             Session["Correct"] = 0;
@@ -52,8 +66,11 @@ namespace TriviaApp.Controllers
 
         public ActionResult Quiz(TriviaResult result)
         {
-            
-            
+            if (Session["userID"] == null)
+            {
+                return RedirectToAction("index", "Account");
+            }
+
             List<TriviaResult> Quiz = (List<TriviaResult>)Session["Trivia"];
             string correct = Quiz[(int)Session["Index"]].CorrectAnswer;
             string selected = result.SelectedAnswer;
@@ -97,7 +114,11 @@ namespace TriviaApp.Controllers
 
         public ActionResult Results()
         {
-            
+            if (Session["userID"] == null)
+            {
+                return RedirectToAction("index", "Account");
+            }
+
             List<TriviaResult> FinishedQuiz = (List<TriviaResult>)Session["Trivia"];
 
 
@@ -106,6 +127,11 @@ namespace TriviaApp.Controllers
 
         public ActionResult MyStats()
         {
+            if (Session["userID"] == null)
+            {
+                return RedirectToAction("index", "Account");
+            }
+
             User UserAccount = new User();
             Stat UserStat = new Stat();
             var userID = (int)Session["userID"];
@@ -117,21 +143,6 @@ namespace TriviaApp.Controllers
             }
             UserAccount.Stat = UserStat;
             return View(UserAccount);
-        }
-
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
